@@ -16,6 +16,7 @@ const config = {
   },
   plugins: [
     // คุณสามารถเพิ่ม Tailwind Plugins ที่นี่ได้
+    require('@tailwindcss/aspect-ratio'),
   ],
 };
 export default config;

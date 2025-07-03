@@ -3,57 +3,10 @@
 
 import Image from "next/image";
 import { notFound } from "next/navigation"; // สำหรับจัดการกรณีไม่พบโปรเจกต์
-
+import { getProjectById, Project, allProjectsData } from "@/lib/projects"; // นำเข้า Project interface, ฟังก์ชัน getProjectById และ allProjectsData จากไฟล์ที่คุณสร้างไว้
 // สมมติว่านี่คือข้อมูลโปรเจกต์ของคุณ (ควรดึงมาจาก API หรือฐานข้อมูลจริง)
 // ข้อมูลนี้ควรเหมือนกับที่คุณใช้ใน ProjectsSection.tsx แต่มีรายละเอียดเพิ่มเติม
-const allProjectsData = [
-  {
-    id: "project-alpha",
-    imageSrc: "/images/project-1.jpg",
-    title: "Project Alpha: UI/UX Design for a New Fintech App",
-    category: "UI/UX Design",
-    description: `
-      โปรเจกต์ Alpha คือการออกแบบ UI/UX สำหรับแอปพลิเคชัน Fintech ใหม่ล่าสุดที่มุ่งเน้นการใช้งานง่ายและปลอดภัยสำหรับผู้ใช้ทุกระดับ. เราได้ทำการวิจัยผู้ใช้อย่างละเอียด, สร้าง Wireframes, Prototypes, และทำการทดสอบ Usability เพื่อให้แน่ใจว่าประสบการณ์ผู้ใช้นั้นราบรื่นและมีประสิทธิภาพ. การออกแบบเน้นความเรียบง่าย, ความชัดเจน, และการเข้าถึงข้อมูลที่สำคัญได้อย่างรวดเร็ว.
-      <br/><br/>
-      **ความท้าทาย:** การสร้างความสมดุลระหว่างความสวยงาม, ฟังก์ชันการทำงานที่ซับซ้อน, และความปลอดภัยของข้อมูลทางการเงิน.
-      <br/><br/>
-      **โซลูชัน:** การใช้ Design System ที่สอดคล้องกัน, การออกแบบ Flow การใช้งานที่เข้าใจง่าย, และการนำเสนอข้อมูลด้วย Visualizations ที่ชัดเจน.
-    `,
-    technologies: ["Figma", "Sketch", "User Research", "Prototyping", "Usability Testing"],
-    // สามารถเพิ่มรูปภาพเพิ่มเติมสำหรับ Gallery ได้
-    galleryImages: [
-      "/images/project-1-detail-1.jpg",
-      "/images/project-1-detail-2.jpg",
-      "/images/project-1-detail-3.jpg",
-    ],
-  },
-  {
-    id: "mobile-app-redesign",
-    imageSrc: "/images/project-2.jpg",
-    title: "Mobile App Redesign: Enhancing User Engagement",
-    category: "Mobile UI",
-    description: `
-      โปรเจกต์นี้เป็นการปรับปรุงดีไซน์แอปพลิเคชันมือถือที่มีอยู่เดิม เพื่อเพิ่มการมีส่วนร่วมของผู้ใช้และปรับปรุงประสบการณ์โดยรวม. เราได้วิเคราะห์ข้อมูลผู้ใช้, ระบุจุดที่ต้องปรับปรุง, และนำเสนอดีไซน์ใหม่ที่ทันสมัยและใช้งานง่ายขึ้น. ผลลัพธ์คือการเพิ่มขึ้นของเวลาที่ผู้ใช้ใช้ในแอปและอัตราการกลับมาใช้งานซ้ำ.
-      <br/><br/>
-      **ความท้าทาย:** การปรับปรุงดีไซน์โดยไม่กระทบต่อฟังก์ชันการทำงานหลักและรักษาความคุ้นเคยของผู้ใช้เดิม.
-      <br/><br/>
-      **โซลูชัน:** การออกแบบที่เน้นความสะอาด, การใช้ภาพประกอบที่น่าสนใจ, และการปรับปรุง Navigation ให้ใช้งานง่ายขึ้น.
-    `,
-    technologies: ["Adobe XD", "Mobile UI", "User Flow", "A/B Testing"],
-    galleryImages: [
-      "/images/project-2-detail-1.jpg",
-      "/images/project-2-detail-2.jpg",
-    ],
-  },
-  // เพิ่มข้อมูลโปรเจกต์อื่นๆ ที่คุณมีใน ProjectsSection.tsx และเพิ่มรายละเอียด
-  // เช่นเดียวกับโครงสร้างด้านบน
-];
 
-
-// ฟังก์ชันสำหรับดึงข้อมูลโปรเจกต์ตาม ID
-function getProjectById(id: string) {
-  return allProjectsData.find((project) => project.id === id);
-}
 
 // ฟังก์ชันสำหรับสร้าง Static Params (สำหรับ Static Site Generation - SSG)
 // Next.js จะสร้างหน้าเหล่านี้ล่วงหน้าในระหว่าง build time
@@ -83,7 +36,7 @@ export default function ProjectDetailPage({
         {/* Breadcrumbs (Optional) */}
         <nav className="text-sm text-gray-500 mb-6">
           <a href="/" className="hover:underline">Home</a> &gt;{" "}
-          <a href="/projects" className="hover:underline">Projects</a> &gt;{" "}
+          <a href="/#projects" className="hover:underline">Projects</a> &gt;{" "}
           <span className="text-blue-600">{project.title.split(":")[0].trim()}</span>
         </nav>
 
@@ -96,7 +49,7 @@ export default function ProjectDetailPage({
         </div>
 
         {/* รูปภาพหลักของโปรเจกต์ */}
-        <div className="relative w-full h-96 md:h-[500px] rounded-lg overflow-hidden shadow-xl mb-12">
+        <div className="relative w-full h-[1200px] md:h-[500px] rounded-lg overflow-hidden shadow-xl mb-12">
           <Image
             src={project.imageSrc}
             alt={project.title}

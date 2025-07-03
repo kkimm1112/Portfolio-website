@@ -4,77 +4,23 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import ProjectCard from "./ProjectCard";
 import Link from "next/link";
 import { useWindowWidth } from "../hooks/useWindowWidth";
+import { projectsData } from "@/lib/datawork"; // นำเข้าข้อมูลโปรเจกต์จากไฟล์ datawork.ts
+
 
 interface Project {
   id: string;
   imageSrc: string;
   title: string;
   category: string;
-  type: "Software" | "Engineer";
-  projectLink?: string;
+  projectLink: string;
+  type: string[];
 }
 
-const projectsData: Project[] = [
-  // ... โปรเจกต์เดิมของคุณ
-  {
-    id: "project-alpha",
-    imageSrc: "/images/project-1.jpg",
-    title: "Project Alpha: Fintech App UI/UX",
-    category: "UI/UX Design",
-    type: "Software",
-    projectLink: "/projects/project-alpha",
-  },
-  {
-    id: "mobile-app-redesign",
-    imageSrc: "/images/project-2.jpg",
-    title: "Mobile App Redesign",
-    category: "Mobile UI",
-    type: "Software",
-    projectLink: "/projects/mobile-app-redesign",
-  },
-  {
-    id: "website-development",
-    imageSrc: "/images/project-3.jpg",
-    title: "E-commerce Website",
-    category: "Web Development",
-    type: "Software",
-    projectLink: "/projects/website-development",
-  },
-  {
-    id: "dashboard-ui",
-    imageSrc: "/images/project-4.jpg",
-    title: "Analytics Dashboard UI",
-    category: "Dashboard Design",
-    type: "Software",
-    projectLink: "/projects/dashboard-ui",
-  },
-  {
-    id: "mechanical-design",
-    imageSrc: "/images/engineer-1.jpg",
-    title: "Automated Assembly Line Design",
-    category: "Mechanical Engineering",
-    type: "Engineer",
-    projectLink: "/projects/mechanical-design",
-  },
-  {
-    id: "robotics-control",
-    imageSrc: "/images/engineer-2.jpg",
-    title: "Robotics Control System",
-    category: "Control Systems",
-    type: "Engineer",
-    projectLink: "/projects/robotics-control",
-  },
-  {
-    id: "structural-analysis",
-    imageSrc: "/images/engineer-3.jpg",
-    title: "Bridge Structural Analysis",
-    category: "Civil Engineering",
-    type: "Engineer",
-    projectLink: "/projects/structural-analysis",
-  },
-];
+interface ProjectsSectionProps {
+  projects: Project[];
+}
 
-export default function ProjectsSection() {
+export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const width = useWindowWidth(); // <== ตรวจจับความกว้าง
   const [activeType, setActiveType] = useState<"Software" | "Engineer" | "All">("All");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -93,7 +39,7 @@ export default function ProjectsSection() {
 
   const baseProjects = activeType === "All"
     ? projectsData
-    : projectsData.filter(project => project.type === activeType);
+    : projectsData.filter(project => project.type.includes(activeType));
 
   const displayProjects = useMemo(() => {
     if (baseProjects.length === 0) return [];
@@ -175,15 +121,16 @@ export default function ProjectsSection() {
 
   if (displayProjects.length === 0) {
     return (
-      <section className="py-16 bg-gray-50" id="work">
+      <section className="py-16 bg-gray-50" id="projects">
         <p className="text-center text-gray-600">No projects found.</p>
       </section>
     );
   }
 
   return (
-    <section className="py-16 bg-gray-50" id="work">
+    <section className="py-16 bg-gray-50" id="projects">
       <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-8">Projects</h2>
 
         <div className="flex justify-center space-x-4 mb-8">
           {["Software", "Engineer", "All"].map((type) => (

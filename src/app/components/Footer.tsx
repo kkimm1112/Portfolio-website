@@ -15,21 +15,14 @@ export default function Footer() {
         <div className="flex justify-center space-x-6 mt-4">
           {/* ตัวอย่างลิงก์โซเชียลมีเดีย (สามารถเพิ่ม icon ได้ในอนาคต) */}
           <a
-            href="https://github.com/yourusername" // แทนที่ด้วย GitHub ของคุณ
+            href="https://github.com/kkimm1112" // แทนที่ด้วย GitHub ของคุณ
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-400 hover:text-white transition-colors duration-200"
           >
             GitHub
           </a>
-          <a
-            href="https://linkedin.com/in/yourprofile" // แทนที่ด้วย LinkedIn ของคุณ
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors duration-200"
-          >
-            LinkedIn
-          </a>
+          
           {/* เพิ่มลิงก์อื่นๆ ได้ตามต้องการ */}
         </div>
       </div>

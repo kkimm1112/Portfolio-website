@@ -5,7 +5,7 @@ import Link from "next/link"; // ถ้ามีลิงก์ไปยัง F
 
 export default function AboutMeSection() {
   return (
-    <section className="py-16 bg-white" id="about-me">
+    <section className="py-16 bg-white" id="about">
       <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
         {/* รูปภาพโปรไฟล์ */}
         <div className="w-full md:w-1/3 flex justify-center">
