@@ -1,111 +1,271 @@
-// src/component/ProjectsSection.tsx
+'use client';
 
-import ProjectCard from "./ProjectCard"; // นำเข้า ProjectCard
+import { useState, useRef, useEffect, useMemo } from "react";
+import ProjectCard from "./ProjectCard";
+import Link from "next/link";
+import { useWindowWidth } from "../hooks/useWindowWidth";
 
-// กำหนด interface สำหรับข้อมูลโปรเจกต์ (ถ้าคุณมีข้อมูลจาก API หรือ JSON)
 interface Project {
   id: string;
   imageSrc: string;
   title: string;
   category: string;
+  type: "Software" | "Engineer";
   projectLink?: string;
 }
 
-// ข้อมูลโปรเจกต์ตัวอย่าง (สามารถดึงมาจาก API หรือไฟล์ JSON ได้ในอนาคต)
 const projectsData: Project[] = [
+  // ... โปรเจกต์เดิมของคุณ
   {
-    id: "1",
-    imageSrc: "/images/webpageSeniorProject.jpg", // ตรวจสอบ path รูปภาพของคุณ
-    title: "Senior Project",
-    category: "Software Development & IoT",
+    id: "project-alpha",
+    imageSrc: "/images/project-1.jpg",
+    title: "Project Alpha: Fintech App UI/UX",
+    category: "UI/UX Design",
+    type: "Software",
     projectLink: "/projects/project-alpha",
   },
   {
-    id: "2",
-    imageSrc: "/images/project-2.jpg", // ตรวจสอบ path รูปภาพของคุณ
+    id: "mobile-app-redesign",
+    imageSrc: "/images/project-2.jpg",
     title: "Mobile App Redesign",
     category: "Mobile UI",
+    type: "Software",
     projectLink: "/projects/mobile-app-redesign",
   },
   {
-    id: "3",
-    imageSrc: "/images/project-3.jpg", // ตรวจสอบ path รูปภาพของคุณ
-    title: "Website Development",
-    category: "Web Design",
+    id: "website-development",
+    imageSrc: "/images/project-3.jpg",
+    title: "E-commerce Website",
+    category: "Web Development",
+    type: "Software",
     projectLink: "/projects/website-development",
   },
   {
-    id: "4",
-    imageSrc: "/images/project-4.jpg", // ตรวจสอบ path รูปภาพของคุณ
-    title: "Dashboard UI",
+    id: "dashboard-ui",
+    imageSrc: "/images/project-4.jpg",
+    title: "Analytics Dashboard UI",
     category: "Dashboard Design",
+    type: "Software",
     projectLink: "/projects/dashboard-ui",
   },
   {
-    id: "5",
-    imageSrc: "/images/project-5.jpg", // ตรวจสอบ path รูปภาพของคุณ
-    title: "E-commerce Platform",
-    category: "UI/UX Design",
-    projectLink: "/projects/ecommerce-platform",
+    id: "mechanical-design",
+    imageSrc: "/images/engineer-1.jpg",
+    title: "Automated Assembly Line Design",
+    category: "Mechanical Engineering",
+    type: "Engineer",
+    projectLink: "/projects/mechanical-design",
   },
   {
-    id: "6",
-    imageSrc: "/images/project-6.jpg", // ตรวจสอบ path รูปภาพของคุณ
-    title: "Brand Identity Guide",
-    category: "Branding",
-    projectLink: "/projects/brand-identity-guide",
+    id: "robotics-control",
+    imageSrc: "/images/engineer-2.jpg",
+    title: "Robotics Control System",
+    category: "Control Systems",
+    type: "Engineer",
+    projectLink: "/projects/robotics-control",
+  },
+  {
+    id: "structural-analysis",
+    imageSrc: "/images/engineer-3.jpg",
+    title: "Bridge Structural Analysis",
+    category: "Civil Engineering",
+    type: "Engineer",
+    projectLink: "/projects/structural-analysis",
   },
 ];
 
 export default function ProjectsSection() {
+  const width = useWindowWidth(); // <== ตรวจจับความกว้าง
+  const [activeType, setActiveType] = useState<"Software" | "Engineer" | "All">("All");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const slideInterval = useRef<NodeJS.Timeout | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const cardsPerView = useMemo(() => {
+    if (width < 640) return 1;
+    if (width < 1024) return 2;
+    return 3;
+  }, [width]);
+
+  const NUM_DUPLICATES = cardsPerView;
+  const initialIndex = NUM_DUPLICATES;
+
+  const baseProjects = activeType === "All"
+    ? projectsData
+    : projectsData.filter(project => project.type === activeType);
+
+  const displayProjects = useMemo(() => {
+    if (baseProjects.length === 0) return [];
+
+    let projects = [...baseProjects];
+    while (projects.length < 6) {
+      projects = [...projects, ...baseProjects];
+    }
+
+    return [
+      ...projects.slice(-NUM_DUPLICATES),
+      ...projects,
+      ...projects.slice(0, NUM_DUPLICATES),
+    ];
+  }, [baseProjects, NUM_DUPLICATES]);
+
+  const startAutoScroll = () => {
+    if (slideInterval.current) clearInterval(slideInterval.current);
+    slideInterval.current = setInterval(() => nextSlide(), 3000);
+  };
+
+  const stopAutoScroll = () => {
+    if (slideInterval.current) clearInterval(slideInterval.current);
+  };
+
+  const nextSlide = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex(prev => {
+      const newIndex = prev + 1;
+      if (newIndex >= displayProjects.length - NUM_DUPLICATES) {
+        setTimeout(() => {
+          containerRef.current?.classList.add("no-transition");
+          setCurrentIndex(initialIndex);
+          setTimeout(() => {
+            containerRef.current?.classList.remove("no-transition");
+            setIsTransitioning(false);
+          }, 50);
+        }, 500);
+        return newIndex;
+      }
+      setTimeout(() => setIsTransitioning(false), 500);
+      return newIndex;
+    });
+  };
+
+  const prevSlide = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex(prev => {
+      const newIndex = prev - 1;
+      if (newIndex < initialIndex) {
+        setTimeout(() => {
+          containerRef.current?.classList.add("no-transition");
+          setCurrentIndex(displayProjects.length - NUM_DUPLICATES - 1);
+          setTimeout(() => {
+            containerRef.current?.classList.remove("no-transition");
+            setIsTransitioning(false);
+          }, 50);
+        }, 500);
+        return newIndex;
+      }
+      setTimeout(() => setIsTransitioning(false), 500);
+      return newIndex;
+    });
+  };
+
+  useEffect(() => {
+    setCurrentIndex(initialIndex);
+    setIsTransitioning(false);
+    startAutoScroll();
+    return () => stopAutoScroll();
+  }, [activeType, displayProjects.length, NUM_DUPLICATES]);
+
+  useEffect(() => {
+    startAutoScroll();
+    return () => stopAutoScroll();
+  }, []);
+
+  if (displayProjects.length === 0) {
+    return (
+      <section className="py-16 bg-gray-50" id="work">
+        <p className="text-center text-gray-600">No projects found.</p>
+      </section>
+    );
+  }
+
   return (
-    <section className="py-16 bg-gray-50" id="projects">
+    <section className="py-16 bg-gray-50" id="work">
       <div className="container mx-auto px-4">
-        {/* ส่วนหัว */}
-        <div className="text-center mb-12">
-          <h2 className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">
-            My Creative Works
-          </h2>
-          <h3 className="text-4xl font-extrabold text-gray-800 leading-tight">
-            Latest <span className="text-blue-600">Projects</span>
-          </h3>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            Explore a selection of my recent work, showcasing my skills in design and development.
-          </p>
-        </div>
 
-        {/* ปุ่มกรอง (ยังไม่มีฟังก์ชันการกรองจริงจัง) */}
-        {/*
-        <div className="flex justify-center space-x-4 mb-12">
-          <button className="px-6 py-2 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors duration-200">
-            All
-          </button>
-          <button className="px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-semibold hover:bg-blue-200 hover:text-blue-700 transition-colors duration-200">
-            UI/UX Design
-          </button>
-          <button className="px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-semibold hover:bg-blue-200 hover:text-blue-700 transition-colors duration-200">
-            Web Development
-          </button>
-          <button className="px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-semibold hover:bg-blue-200 hover:text-blue-700 transition-colors duration-200">
-            Mobile Apps
-          </button>
-        </div>
-        */}
-
-        {/* Grid แสดงโปรเจกต์ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projectsData.map((project) => (
-            <ProjectCard
-              key={project.id}
-              imageSrc={project.imageSrc}
-              title={project.title}
-              category={project.category}
-              projectLink={project.projectLink}
-            />
+        <div className="flex justify-center space-x-4 mb-8">
+          {["Software", "Engineer", "All"].map((type) => (
+            <button
+              key={type}
+              onClick={() => setActiveType(type as "Software" | "Engineer" | "All")}
+              className={`px-6 py-2 rounded-full font-semibold transition-colors duration-200 ${activeType === type
+                  ? "bg-blue-600 text-white shadow-md"
+                  : "bg-gray-200 text-gray-700 hover:bg-blue-200 hover:text-blue-700"
+                }`}
+            >
+              {type}
+            </button>
           ))}
         </div>
 
-        
+        {/* Carousel */}
+        <div
+          className="relative overflow-hidden"
+          onMouseEnter={stopAutoScroll}
+          onMouseLeave={startAutoScroll}
+        >
+          <div
+            className="flex transition-transform duration-500 ease-linear"
+            ref={containerRef}
+            style={{
+              transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`,
+            }}
+          >
+            {displayProjects.map((project, index) => (
+              <div
+                key={`${project.id}-${index}`}
+                className="flex-shrink-0 px-4"
+                style={{ width: `calc(100% / ${cardsPerView})` }}
+              >
+                <ProjectCard
+                  imageSrc={project.imageSrc}
+                  title={project.title}
+                  category={project.category}
+                  projectLink={project.projectLink}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* ปุ่มซ้าย/ขวา */}
+          {/* <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 z-10">←</button>
+          <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 z-10">→</button> */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-600 hover:text-blue-600 p-3 rounded-full shadow-md transition duration-300 backdrop-blur-sm"
+            aria-label="Previous Slide"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <button
+            onClick={nextSlide}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-600 hover:text-blue-600 p-3 rounded-full shadow-md transition duration-300 backdrop-blur-sm"
+            aria-label="Next Slide"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
       </div>
     </section>
   );

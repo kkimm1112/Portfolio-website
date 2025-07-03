@@ -19,7 +19,7 @@ export default function ProjectCard({
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
       <Link href={projectLink}>
-        <div className="relative w-full pb-[56.25%] overflow-hidden">
+        <div className="relative w-full h-[300px] overflow-hidden">
           <Image
             src={imageSrc}
             alt={title}

@@ -1,14 +1,19 @@
-// app/page.tsx หรือ src/app/page.tsx
-import ProjectsSection from './components/ProjectsSection'; // ตรวจสอบ path ให้ถูกต้อง
+// src/app/page.tsx
+
+import AboutMeSection from "./components/AboutMeSection";
+import ProjectsSection from "./components/ProjectsSection";
+import ContactSection from "./components/ContactSection";
+
+// คุณอาจจะมีส่วน Hero Section หรืออื่นๆ เพิ่มเติมที่นี่
+// import HeroSection from "../src/component/HeroSection";
 
 export default function HomePage() {
   return (
-    <div>
-      {/* ส่วนอื่นๆ ของ Home Page เช่น Hero Section, About Section */}
-
-      <ProjectsSection /> {/* เพิ่มส่วนแสดงผลงานตรงนี้ */}
-
-      {/* ส่วนอื่นๆ ของ Home Page */}
-    </div>
+    <>
+      {/* <HeroSection /> ถ้ามี */}
+      <AboutMeSection />
+      <ProjectsSection /> {/* ส่วน Work/Projects */}
+      <ContactSection />
+    </>
   );
 }
