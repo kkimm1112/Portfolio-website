@@ -5,6 +5,7 @@ export interface Project {
   category?: string;
   description: string;
   technologies: string[];
+  apkDownloadUrl?: string; // Optional for mobile apps
   galleryImages: string[];
 }
 
@@ -30,16 +31,17 @@ export const allProjectsData: Project[] = [
   {
     id: "mobile-app-redesign",
     imageSrc: "/images/project-2.jpg",
-    title: "Mobile App Redesign: Enhancing User Engagement",
+    title: "App POS - minimart: Manage products and sales",
     category: "Mobile UI",
     description: `
-      โปรเจกต์นี้เป็นการปรับปรุงดีไซน์แอปพลิเคชันมือถือที่มีอยู่เดิม เพื่อเพิ่มการมีส่วนร่วมของผู้ใช้และปรับปรุงประสบการณ์โดยรวม. เราได้วิเคราะห์ข้อมูลผู้ใช้, ระบุจุดที่ต้องปรับปรุง, และนำเสนอดีไซน์ใหม่ที่ทันสมัยและใช้งานง่ายขึ้น. ผลลัพธ์คือการเพิ่มขึ้นของเวลาที่ผู้ใช้ใช้ในแอปและอัตราการกลับมาใช้งานซ้ำ.
+      โปรเจกต์นี้เป็นการออกแบบและสร้างแอปพลิเคชัน POS สำหรับร้านมินิมาร์ทที่มีฟังก์ชันการจัดการสินค้าและการขาย บนสมาร์ทโฟน
       <br/><br/>
-      **ความท้าทาย:** การปรับปรุงดีไซน์โดยไม่กระทบต่อฟังก์ชันการทำงานหลักและรักษาความคุ้นเคยของผู้ใช้เดิม.
+      **ความท้าทาย:** การออกแบบ UI ที่ใช้งานง่ายสำหรับผู้ใช้ที่ไม่คุ้นเคยกับเทคโนโลยี, การจัดการข้อมูลสินค้าที่มีจำนวนมาก, และการทำให้แอปพลิเคชันทำงานได้รวดเร็วและมีประสิทธิภาพ
       <br/><br/>
-      **โซลูชัน:** การออกแบบที่เน้นความสะอาด, การใช้ภาพประกอบที่น่าสนใจ, และการปรับปรุง Navigation ให้ใช้งานง่ายขึ้น.
+      **ฟังก์ชันการใช้งาน:** การเพิ่มและแก้ไขข้อมูลสินค้า, การจัดการสต็อกสินค้า, การสร้างรายงานการขาย, และการทำงานแบบออฟไลน์
     `,
-    technologies: ["Adobe XD", "Mobile UI", "User Flow", "A/B Testing"],
+    technologies: ["Figma", "Flutter", "Andriod Studio", "Prototyping"],
+    apkDownloadUrl: "/downloads/app-release.apk",
     galleryImages: [
       "/images/project-2-detail-1.jpg",
       "/images/project-2-detail-2.jpg",

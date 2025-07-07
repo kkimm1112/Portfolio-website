@@ -21,8 +21,8 @@ export const projectsData: Project[] = [
   {
     id: "mobile-app-redesign",
     imageSrc: "/images/project-2.jpg",
-    title: "Mobile App Redesign",
-    category: "Mobile UI",
+    title: "App POS - minimart",
+    category: "Mobile Application",
     type: ["Software"],
     projectLink: "/projects/mobile-app-redesign",
   },

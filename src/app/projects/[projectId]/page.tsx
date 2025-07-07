@@ -85,6 +85,22 @@ export default function ProjectDetailPage({
           </div>
         )}
 
+        {/* ปุ่มดาวน์โหลดเฉพาะโปรเจกต์ที่มี apkDownloadUrl */}
+        {project.apkDownloadUrl && (
+          <div className="text-center mt-8">
+            <h4>file programe: App POS - minimart</h4>
+            <br />
+            <a
+              href={project.apkDownloadUrl}
+              download
+              className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105 shadow-lg"
+            >
+              📥 Download APK
+            </a>
+          </div>
+        )}
+
+
         {/* Gallery รูปภาพเพิ่มเติม (ถ้ามี) */}
         {project.galleryImages && project.galleryImages.length > 0 && (
           <div className="bg-white p-8 rounded-lg shadow-lg mb-12">
@@ -108,7 +124,7 @@ export default function ProjectDetailPage({
         {/* ปุ่มกลับไปหน้า Projects */}
         <div className="text-center mt-12">
           <a
-            href="/projects"
+            href="/#projects"
             className="inline-block bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full hover:bg-gray-300 transition-colors duration-300 transform hover:scale-105 shadow-lg"
           >
             &larr; Back to Projects
