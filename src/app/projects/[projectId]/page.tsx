@@ -4,12 +4,16 @@
 import Image from "next/image";
 import { notFound } from "next/navigation"; // สำหรับจัดการกรณีไม่พบโปรเจกต์
 import { getProjectById, allProjectsData } from "@/lib/projects"; // นำเข้า Project interface, ฟังก์ชัน getProjectById และ allProjectsData จากไฟล์ที่คุณสร้างไว้
-// สมมติว่านี่คือข้อมูลโปรเจกต์ของคุณ (ควรดึงมาจาก API หรือฐานข้อมูลจริง)
-// ข้อมูลนี้ควรเหมือนกับที่คุณใช้ใน ProjectsSection.tsx แต่มีรายละเอียดเพิ่มเติม
+
 import ProjectGallery from "@/app/components/ProjectGallery" // นำเข้า ProjectGallery component
 import Link from "next/link";
-// ฟังก์ชันสำหรับสร้าง Static Params (สำหรับ Static Site Generation - SSG)
-// Next.js จะสร้างหน้าเหล่านี้ล่วงหน้าในระหว่าง build time
+
+interface ProjectDetailPageProps {
+  params: {
+    projectId: string;
+  };
+}
+
 export async function generateStaticParams() {
   return allProjectsData.map((project) => ({
     projectId: project.id,
@@ -17,12 +21,9 @@ export async function generateStaticParams() {
 }
 
 // Component หลักของหน้า Project Detail
-export default async function ProjectDetailPage({ params }: 
-  { params: { projectId: string } 
-  
-}) {
-  const projectId = params.projectId;
-  const project = await getProjectById(projectId);
+export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
+  const project = await getProjectById(params.projectId);
+
 
   // ถ้าไม่พบโปรเจกต์ ให้แสดงหน้า 404
   if (!project) {
