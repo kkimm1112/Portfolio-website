@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import ProjectCard from "./ProjectCard";
-import Link from "next/link";
+// import Link from "next/link";
 import { useWindowWidth } from "../hooks/useWindowWidth";
 import { projectsData } from "@/lib/datawork"; // นำเข้าข้อมูลโปรเจกต์จากไฟล์ datawork.ts
 
@@ -22,7 +22,7 @@ interface ProjectsSectionProps {
 
 export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const width = useWindowWidth(); // <== ตรวจจับความกว้าง
-  const [activeType, setActiveType] = useState<"Software" | "Engineer" | "All">("All");
+  const [activeType] = useState<"Software" | "Engineer" | "All">("All");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const slideInterval = useRef<NodeJS.Timeout | null>(null);

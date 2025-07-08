@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import { notFound } from "next/navigation"; // สำหรับจัดการกรณีไม่พบโปรเจกต์
-import { getProjectById, Project, allProjectsData } from "@/lib/projects"; // นำเข้า Project interface, ฟังก์ชัน getProjectById และ allProjectsData จากไฟล์ที่คุณสร้างไว้
+import { getProjectById, allProjectsData } from "@/lib/projects"; // นำเข้า Project interface, ฟังก์ชัน getProjectById และ allProjectsData จากไฟล์ที่คุณสร้างไว้
 // สมมติว่านี่คือข้อมูลโปรเจกต์ของคุณ (ควรดึงมาจาก API หรือฐานข้อมูลจริง)
 // ข้อมูลนี้ควรเหมือนกับที่คุณใช้ใน ProjectsSection.tsx แต่มีรายละเอียดเพิ่มเติม
 import ProjectGallery from "@/app/components/ProjectGallery" // นำเข้า ProjectGallery component

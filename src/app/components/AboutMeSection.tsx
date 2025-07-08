@@ -1,7 +1,6 @@
 // src/component/AboutMeSection.tsx
 
 import Image from "next/image";
-import Link from "next/link"; // ถ้ามีลิงก์ไปยัง Full Resume Page
 
 export default function AboutMeSection() {
   return (
@@ -20,7 +19,7 @@ export default function AboutMeSection() {
           </div>
         </div>
 
-        {/* ข้อมูลเกี่ยวกับฉัน */}
+        
         <div className="w-full md:w-2/3 text-center md:text-left">
           <h2 className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">
             Who I Am
@@ -52,7 +51,7 @@ export default function AboutMeSection() {
           </ul>
 
           <p className="text-gray-700 text-base sm:text-lg leading-relaxed mb-4">
-            I’m passionate about expanding my skills in frontend, backend, and
+            I am passionate about expanding my skills in frontend, backend, and
             embedded systems. I enjoy learning new technologies that solve
             real-world problems.
           </p>
@@ -62,12 +61,7 @@ export default function AboutMeSection() {
             reliable, user-focused systems and collaborate effectively in
             professional teams.
           </p>
-          {/* <Link
-            href="/about" // หรือลิงก์ไปยังหน้า About ที่มีรายละเอียดเพิ่มเติม
-            className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105 shadow-lg"
-          >
-            Learn More About Me
-          </Link> */}
+          
         </div>
       </div>
     </section>
