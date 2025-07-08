@@ -17,12 +17,11 @@ export async function generateStaticParams() {
 }
 
 // Component หลักของหน้า Project Detail
-export default async function ProjectDetailPage(props:{
-  params: { projectId: string };
-
+export default async function ProjectDetailPage({ params }: 
+  { params: { projectId: string } 
   
 }) {
-  const { projectId } = await Promise.resolve(props.params); 
+  const { projectId } = params; 
   const project = getProjectById(projectId);
 
   // ถ้าไม่พบโปรเจกต์ ให้แสดงหน้า 404
