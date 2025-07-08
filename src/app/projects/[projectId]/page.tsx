@@ -22,7 +22,7 @@ export default async function ProjectDetailPage({ params }:
   
 }) {
   const projectId = params.projectId;
-  const project = getProjectById(projectId);
+  const project = await getProjectById(projectId);
 
   // ถ้าไม่พบโปรเจกต์ ให้แสดงหน้า 404
   if (!project) {
