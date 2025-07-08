@@ -6,7 +6,7 @@ import { notFound } from "next/navigation"; // สำหรับจัดกา
 import { getProjectById, Project, allProjectsData } from "@/lib/projects"; // นำเข้า Project interface, ฟังก์ชัน getProjectById และ allProjectsData จากไฟล์ที่คุณสร้างไว้
 // สมมติว่านี่คือข้อมูลโปรเจกต์ของคุณ (ควรดึงมาจาก API หรือฐานข้อมูลจริง)
 // ข้อมูลนี้ควรเหมือนกับที่คุณใช้ใน ProjectsSection.tsx แต่มีรายละเอียดเพิ่มเติม
-
+import ProjectGallery from "@/app/components/ProjectGallery" // นำเข้า ProjectGallery component
 
 // ฟังก์ชันสำหรับสร้าง Static Params (สำหรับ Static Site Generation - SSG)
 // Next.js จะสร้างหน้าเหล่านี้ล่วงหน้าในระหว่าง build time
@@ -88,7 +88,7 @@ export default async function ProjectDetailPage(props:{
         {/* ปุ่มดาวน์โหลดเฉพาะโปรเจกต์ที่มี apkDownloadUrl */}
         {project.apkDownloadUrl && (
           <div className="text-center mt-8">
-            <h4>file programe: App POS - minimart</h4>
+            <h4>fili: {project.title}</h4>
             <br />
             <a
               href={project.apkDownloadUrl}
@@ -101,25 +101,8 @@ export default async function ProjectDetailPage(props:{
         )}
 
 
-        {/* Gallery รูปภาพเพิ่มเติม (ถ้ามี) */}
-        {project.galleryImages && project.galleryImages.length > 0 && (
-          <div className="bg-white p-8 rounded-lg shadow-lg mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">Project Gallery</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {project.galleryImages.map((imgSrc, index) => (
-                <div key={index} className="relative w-full h-64 rounded-lg overflow-hidden shadow-md">
-                  <Image
-                    src={imgSrc}
-                    alt={`${project.title} - Image ${index + 1}`}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-lg"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        <ProjectGallery title={project.title} galleryImages={project.galleryImages} />
+
 
         {/* ปุ่มกลับไปหน้า Projects */}
         <div className="text-center mt-12">

@@ -130,9 +130,9 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   return (
     <section className="py-16 bg-gray-50" id="projects">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8">Projects</h2>
+        <h2 className="text-4xl font-bold text-center mb-8">Projects</h2>
 
-        <div className="flex justify-center space-x-4 mb-8">
+        {/* <div className="flex justify-center space-x-4 mb-8">
           {["Software", "Engineer", "All"].map((type) => (
             <button
               key={type}
@@ -145,7 +145,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
               {type}
             </button>
           ))}
-        </div>
+        </div> */}
 
         {/* Carousel */}
         <div

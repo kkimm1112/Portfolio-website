@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FaEnvelope, FaPhone, FaGithub, FaFileAlt } from "react-icons/fa";
-
+import ResumePreviewCard from "@/app/components/ResumePreviewCard";
 export default function ContactSection() {
   return (
     <section className="py-16 bg-gray-800 text-white" id="contact">
@@ -21,7 +21,7 @@ export default function ContactSection() {
         </div>
 
         {/* ข้อมูลการติดต่อ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Email */}
           <div className="bg-gray-700 p-6 rounded-lg shadow-lg flex flex-col items-center hover:bg-gray-600 transition-colors duration-300">
             <FaEnvelope className="text-blue-400 text-4xl mb-4" />
@@ -59,23 +59,14 @@ export default function ContactSection() {
               Thanapat Kajoompoo
             </Link>
           </div>
+
+          {/* Resume - Software */}
+          <ResumePreviewCard />
         </div>
 
         {/* เรซูเม่แยก Software และ Engineer */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Resume - Software */}
-          <div className="bg-gray-700 p-6 rounded-lg shadow-lg flex flex-col items-center hover:bg-gray-600 transition-colors duration-300">
-            <FaFileAlt className="text-yellow-400 text-4xl mb-4" />
-            <h4 className="text-xl font-semibold mb-2">Resume</h4>
-            <Link
-              href="/Thanapat_Software_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              Download PDF
-            </Link>
-          </div>
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
 
           {/* Resume - Engineer
           <div className="bg-gray-700 p-6 rounded-lg shadow-lg flex flex-col items-center hover:bg-gray-600 transition-colors duration-300">
@@ -90,7 +81,7 @@ export default function ContactSection() {
               Download PDF
             </Link> */}
           {/* </div> */}
-        </div>
+        {/* </div> */} 
       </div>
     </section>
   );

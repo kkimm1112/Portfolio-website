@@ -51,6 +51,25 @@ export const allProjectsData: Project[] = [
       "/images/img-appPOS/img6.jpg",
     ],
   },
+  {
+    id: "website-development",
+    imageSrc: "/images/workShopAPI.png",
+    title: "E-Commerce Website: workshop from learn",
+    category: "Web Development",
+    description: `
+      โปรเจกต์นี้เป็นการทดสอบการพัฒนาเว็บไซต์อีคอมเมิร์ซโดยใช้ mock API เพื่อดึงข้อมูลสินค้าและจัดการตะกร้าสินค้า
+      <br/><br/>
+      **ความท้าทาย:** ออกแบบ UI เว็บไซต์, การจัดการ API สำหรับการดึงข้อมูลสินค้า
+      <br/><br/>
+      **ฟังก์ชันการใช้งาน:** เพิ่ม-ลบสินค้าในตะกร้า
+    `,
+    technologies: ["HTML", "CSS", "JavaScript", "mockAPI"],
+    
+    galleryImages: [
+      "/images/workShopAPI.png",
+      
+    ],
+  },
   // เพิ่มโปรเจกต์อื่นๆ ตามต้องการ
 ];
 
