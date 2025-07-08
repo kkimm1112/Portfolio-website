@@ -21,7 +21,7 @@ export default async function ProjectDetailPage({ params }:
   { params: { projectId: string } 
   
 }) {
-  const { projectId } = params; 
+  const projectId = params.projectId;
   const project = getProjectById(projectId);
 
   // ถ้าไม่พบโปรเจกต์ ให้แสดงหน้า 404
