@@ -7,7 +7,7 @@ import { getProjectById, allProjectsData } from "@/lib/projects"; // นำเ�
 // สมมติว่านี่คือข้อมูลโปรเจกต์ของคุณ (ควรดึงมาจาก API หรือฐานข้อมูลจริง)
 // ข้อมูลนี้ควรเหมือนกับที่คุณใช้ใน ProjectsSection.tsx แต่มีรายละเอียดเพิ่มเติม
 import ProjectGallery from "@/app/components/ProjectGallery" // นำเข้า ProjectGallery component
-
+import Link from "next/link";
 // ฟังก์ชันสำหรับสร้าง Static Params (สำหรับ Static Site Generation - SSG)
 // Next.js จะสร้างหน้าเหล่านี้ล่วงหน้าในระหว่าง build time
 export async function generateStaticParams() {
@@ -35,8 +35,8 @@ export default async function ProjectDetailPage(props:{
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Breadcrumbs (Optional) */}
         <nav className="text-sm text-gray-500 mb-6">
-          <a href="/" className="hover:underline">Home</a> &gt;{" "}
-          <a href="/#projects" className="hover:underline">Projects</a> &gt;{" "}
+          <Link href="/" className="hover:underline">Home</Link> &gt;{" "}
+          <Link href="/#projects" className="hover:underline">Projects</Link> &gt;{" "}
           <span className="text-blue-600">{project.title.split(":")[0].trim()}</span>
         </nav>
 
@@ -106,12 +106,12 @@ export default async function ProjectDetailPage(props:{
 
         {/* ปุ่มกลับไปหน้า Projects */}
         <div className="text-center mt-12">
-          <a
+          <Link
             href="/#projects"
             className="inline-block bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full hover:bg-gray-300 transition-colors duration-300 transform hover:scale-105 shadow-lg"
           >
             &larr; Back to Projects
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@ interface ProjectsSectionProps {
   projects: Project[];
 }
 
-export default function ProjectsSection({ projects }: ProjectsSectionProps) {
+export default function ProjectsSection({ }: ProjectsSectionProps) {
   const width = useWindowWidth(); // <== ตรวจจับความกว้าง
   const [activeType] = useState<"Software" | "Engineer" | "All">("All");
   const [currentIndex, setCurrentIndex] = useState(0);

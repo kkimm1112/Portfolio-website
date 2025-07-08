@@ -28,7 +28,7 @@ export default function AboutMeSection() {
             About <span className="text-blue-600">Me</span>
           </h3>
           <p className="text-gray-700 text-base sm:text-lg leading-relaxed mb-4">
-            Hi, I'm Thanapat Kajoompoo, a recent Computer Engineering graduate from
+            Hi, I&apos;m Thanapat Kajoompoo, a recent Computer Engineering graduate from
             Naresuan University.
           </p>
 
@@ -51,7 +51,7 @@ export default function AboutMeSection() {
           </ul>
 
           <p className="text-gray-700 text-base sm:text-lg leading-relaxed mb-4">
-            I am passionate about expanding my skills in frontend, backend, and
+            I&apos;m passionate about expanding my skills in frontend, backend, and
             embedded systems. I enjoy learning new technologies that solve
             real-world problems.
           </p>
