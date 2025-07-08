@@ -44,7 +44,7 @@ export default function ResumeCard() {
 
             {/* PDF Preview */}
             <iframe
-              src="/downloads/Thanapat Kajoompoo-Resume_Software.pdf"
+              src="/downloads/Thanapat Kajoompoo-Resume.pdf"
               title="Resume Preview"
               className="w-full h-full"
             ></iframe>
