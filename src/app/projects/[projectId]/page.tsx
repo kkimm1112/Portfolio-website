@@ -1,118 +1,156 @@
 // src/app/projects/[projectId]/page.tsx
+import { notFound } from 'next/navigation';
+import { getProjectById, allProjectsData } from '@/lib/projects';
+import Image from 'next/image';
+import ProjectGallery from "@/app/components/ProjectGallery" // นำเข้า 
+// Next.js 15 - params เป็น Promise
+interface ProjectDetailPageProps {
+  params: Promise<{
+    projectId: string;
+  }>;
+}
 
-import Image from "next/image";
-import { notFound } from "next/navigation"; // สำหรับจัดการกรณีไม่พบโปรเจกต์
-import { getProjectById, allProjectsData } from "@/lib/projects"; // นำเข้า Project interface, ฟังก์ชัน getProjectById และ allProjectsData จากไฟล์ที่คุณสร้างไว้
-
-import ProjectGallery from "@/app/components/ProjectGallery" // นำเข้า ProjectGallery component
-import Link from "next/link";
-
-
-type PageProps = {
-  params: { projectId: string };
-  
-};
-
-
+// สำหรับ generateStaticParams
 export async function generateStaticParams() {
   return allProjectsData.map((project) => ({
     projectId: project.id,
   }));
 }
 
-export default function ProjectDetailPage({ params }: { params: { projectId: string } }) {
-  const project = getProjectById(params.projectId);
+export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
+  // ใน Next.js 15 ต้อง await params
+  const { projectId } = await params;
+  
+  const project = getProjectById(projectId);
 
-
-  // ถ้าไม่พบโปรเจกต์ ให้แสดงหน้า 404
   if (!project) {
     notFound();
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen py-16">
-      <div className="container mx-auto px-4 max-w-4xl">
-        {/* Breadcrumbs (Optional) */}
-        <nav className="text-sm text-gray-500 mb-6">
-          <Link href="/" className="hover:underline">Home</Link> &gt;{" "}
-          <Link href="/#projects" className="hover:underline">Projects</Link> &gt;{" "}
-          <span className="text-blue-600">{project.title.split(":")[0].trim()}</span>
-        </nav>
-
-        {/* ส่วนหัวโปรเจกต์ */}
-        <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 leading-tight mb-4">
-            {project.title}
-          </h1>
-          <p className="text-blue-600 text-lg font-semibold">{project.category}</p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header Section */}
+      <div className="bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              {project.title}
+            </h1>
+            {project.category && (
+              <span className="inline-block bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+                {project.category}
+              </span>
+            )}
+          </div>
         </div>
+      </div>
 
-        {/* รูปภาพหลักของโปรเจกต์ */}
-        <div className="relative w-full h-[1200px] md:h-[500px] rounded-lg overflow-hidden shadow-xl mb-12">
-          <Image
-            src={project.imageSrc}
-            alt={project.title}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-lg"
-          />
-        </div>
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          {/* Hero Image */}
+          <div className="mb-8">
+            <Image
+              src={project.imageSrc}
+              alt={project.title}
+              width={800}
+              height={400}
+              className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
+              priority
+            />
+          </div>
 
-        {/* รายละเอียดโปรเจกต์ */}
-        <div className="bg-white p-8 rounded-lg shadow-lg mb-12">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">Project Overview</h2>
-          <div
-            className="text-gray-700 leading-relaxed space-y-4"
-            dangerouslySetInnerHTML={{ __html: project.description }}
-          />
-        </div>
+          {/* Project Info Grid */}
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            {/* Description */}
+            <div className="md:col-span-2">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Project Description
+              </h2>
+              <div 
+                className="text-gray-700 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: project.description }}
+              />
+            </div>
 
-        {/* เทคโนโลยีที่ใช้ */}
-        {project.technologies && project.technologies.length > 0 && (
-          <div className="bg-white p-8 rounded-lg shadow-lg mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">Technologies Used</h2>
-            <div className="flex flex-wrap gap-3">
-              {project.technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium"
-                >
-                  {tech}
-                </span>
-              ))}
+            {/* Sidebar */}
+            <div className="space-y-6">
+              {/* Technologies */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  Technologies Used
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech, index) => (
+                    <span
+                      key={index}
+                      className="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* APK Download */}
+              {project.apkDownloadUrl && (
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    Download
+                  </h3>
+                  <a
+                    href={project.apkDownloadUrl}
+                    download
+                    className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+                      />
+                    </svg>
+                    Download APK
+                  </a>
+                </div>
+              )}
             </div>
           </div>
-        )}
+          <ProjectGallery title={project.title} galleryImages={project.galleryImages} />
 
-        {/* ปุ่มดาวน์โหลดเฉพาะโปรเจกต์ที่มี apkDownloadUrl */}
-        {project.apkDownloadUrl && (
-          <div className="text-center mt-8">
-            <h4>fili: {project.title}</h4>
-            <br />
+          {/* Back Button */}
+          <div className="mt-12 text-center">
             <a
-              href={project.apkDownloadUrl}
-              download
-              className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105 shadow-lg"
+              href="/#projects"
+              className="inline-flex items-center bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors"
             >
-              📥 Download APK
+              <svg
+                className="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                />
+              </svg>
+              Back to Projects
             </a>
           </div>
-        )}
-
-
-        <ProjectGallery title={project.title} galleryImages={project.galleryImages} />
-
-
-        {/* ปุ่มกลับไปหน้า Projects */}
-        <div className="text-center mt-12">
-          <Link
-            href="/#projects"
-            className="inline-block bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-full hover:bg-gray-300 transition-colors duration-300 transform hover:scale-105 shadow-lg"
-          >
-            &larr; Back to Projects
-          </Link>
         </div>
       </div>
     </div>
   );
 }
+
+// Metadata สำหรับ SEO
+

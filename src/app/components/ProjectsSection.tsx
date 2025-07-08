@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import ProjectCard from "./ProjectCard";
 // import Link from "next/link";
 import { useWindowWidth } from "../hooks/useWindowWidth";
@@ -56,16 +56,16 @@ export default function ProjectsSection({ }: ProjectsSectionProps) {
     ];
   }, [baseProjects, NUM_DUPLICATES]);
 
-  const startAutoScroll = () => {
+  const startAutoScroll = useCallback(() => {
     if (slideInterval.current) clearInterval(slideInterval.current);
     slideInterval.current = setInterval(() => nextSlide(), 3000);
-  };
+  }, []);
 
-  const stopAutoScroll = () => {
+  const stopAutoScroll = useCallback(() => {
     if (slideInterval.current) clearInterval(slideInterval.current);
-  };
+  }, []);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex(prev => {
@@ -84,9 +84,9 @@ export default function ProjectsSection({ }: ProjectsSectionProps) {
       setTimeout(() => setIsTransitioning(false), 500);
       return newIndex;
     });
-  };
+  }, [isTransitioning, displayProjects.length, NUM_DUPLICATES, initialIndex]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex(prev => {
@@ -105,19 +105,19 @@ export default function ProjectsSection({ }: ProjectsSectionProps) {
       setTimeout(() => setIsTransitioning(false), 500);
       return newIndex;
     });
-  };
+  }, [isTransitioning, displayProjects.length, NUM_DUPLICATES, initialIndex]);
 
   useEffect(() => {
     setCurrentIndex(initialIndex);
     setIsTransitioning(false);
     startAutoScroll();
     return () => stopAutoScroll();
-  }, [activeType, displayProjects.length, NUM_DUPLICATES]);
+  }, [activeType, displayProjects.length, NUM_DUPLICATES, initialIndex, startAutoScroll, stopAutoScroll]);
 
   useEffect(() => {
     startAutoScroll();
     return () => stopAutoScroll();
-  }, []);
+  }, [startAutoScroll, stopAutoScroll]);
 
   if (displayProjects.length === 0) {
     return (
@@ -177,8 +177,6 @@ export default function ProjectsSection({ }: ProjectsSectionProps) {
           </div>
 
           {/* ปุ่มซ้าย/ขวา */}
-          {/* <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 z-10">←</button>
-          <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 z-10">→</button> */}
           <button
             onClick={prevSlide}
             className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-600 hover:text-blue-600 p-3 rounded-full shadow-md transition duration-300 backdrop-blur-sm"
