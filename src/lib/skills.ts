@@ -1,30 +1,22 @@
 // src/lib/skills.ts
 
 export const techSkills = [
-  "JavaScript",
-  "React",
-  "Next.js",
-  "TypeScript",
-  "Tailwind CSS",
-  "Node.js",
-  "REST API",
-  "Git",
-  "HTML",
-  "CSS",
-  "Python",
-  "PostgreSQL", 
-  "MySQL",
-  "PHP",
-  "Firebase",
-  "Prisma",
-  "Vercel",
-  "Realway",
-  "Arduino",
-  "Figma",
-  "C++",
-  "Embedded Systems",
-  "Image Processing",
-
+  {
+    category: "Frontend",
+    items: ["HTML", "CSS", "JavaScript", "React", "Next.js", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    category: "Backend & Database",
+    items: ["Node.js", "PHP", "Prisma", "PostgreSQL", "MySQL"],
+  },
+  {
+    category: "Tools & DevOps",
+    items: ["Git", "Figma", "Vercel"],
+  },
+  {
+    category: "Embedded & Hardware",
+    items: ["Arduino", "C++", "Image Processing (Learning)", "Embedded Systems"],
+  },
 ];
 
 export const languageSkills = [

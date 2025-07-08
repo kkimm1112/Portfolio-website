@@ -23,8 +23,9 @@ export default function ProjectCard({
           <Image
             src={imageSrc}
             alt={title}
-            layout="fill" // Makes image fill the parent div
-            objectFit="cover" // Ensures the image covers the area, cropping if necessary
+            fill
+            style={{ objectFit: "cover" }} // Ensures the image covers the area, cropping if necessary
+            // Ensures the image covers the area, cropping if necessary
             className="transition-opacity duration-300 hover:opacity-90"
           />
         </div>

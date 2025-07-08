@@ -30,7 +30,7 @@ export const allProjectsData: Project[] = [
   },
   {
     id: "mobile-app-redesign",
-    imageSrc: "/images/project-2.jpg",
+    imageSrc: "/images/img-appPOS/img1.jpg",
     title: "App POS - minimart: Manage products and sales",
     category: "Mobile UI",
     description: `
@@ -43,8 +43,12 @@ export const allProjectsData: Project[] = [
     technologies: ["Figma", "Flutter", "Andriod Studio", "Prototyping"],
     apkDownloadUrl: "/downloads/app-release.apk",
     galleryImages: [
-      "/images/project-2-detail-1.jpg",
-      "/images/project-2-detail-2.jpg",
+      "/images/img-appPOS/img1.jpg",
+      "/images/img-appPOS/img2.jpg",
+      "/images/img-appPOS/img3.jpg",
+      "/images/img-appPOS/img4.jpg",
+      "/images/img-appPOS/img5.jpg",
+      "/images/img-appPOS/img6.jpg",
     ],
   },
   // เพิ่มโปรเจกต์อื่นๆ ตามต้องการ

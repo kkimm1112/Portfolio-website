@@ -13,8 +13,8 @@ export default function AboutMeSection() {
             <Image
               src="/images/pofile_img.jpg" // <-- ต้องมีรูปโปรไฟล์ของคุณใน public/images/profile.jpg
               alt="Thanapat K. Profile Picture"
-              layout="fill"
-              objectFit="cover"
+              fill
+              style={{ objectFit: "cover" }} // ปรับให้รูปเต็มกรอบ
               className="" // ลูกเล่น: ขาวดำเมื่อไม่ได้โฮเวอร์
             />
           </div>
@@ -28,21 +28,46 @@ export default function AboutMeSection() {
           <h3 className="text-4xl font-extrabold text-gray-800 leading-tight mb-6">
             About <span className="text-blue-600">Me</span>
           </h3>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            Hi, I'm Thanapat K., a passionate web developer with a focus on
-            creating beautiful and functional websites. I love coding and
-            bringing ideas to life through technology.
+          <p className="text-gray-700 text-base sm:text-lg leading-relaxed mb-4">
+            Hi, I'm Thanapat Kajoompoo, a recent Computer Engineering graduate from
+            Naresuan University.
           </p>
-          <p className="text-gray-700 leading-relaxed mb-6">
-            my skills include HTML, CSS, JavaScript, and React. I enjoy
-            learning new technologies and improving my skills every day. When I'm
+
+          <p className="text-gray-700 text-base sm:text-lg leading-relaxed mb-4">
+            During my studies, I developed a strong interest in software
+            development and hands-on project implementation. My notable projects
+            include:
           </p>
-          <Link
+
+          <ul className="list-disc list-inside text-gray-700 text-base sm:text-lg mb-4 pl-4 sm:pl-6">
+            <li className="mb-2">
+              <strong>Senior Project:</strong> A plastic bottle classification
+              system using ESP32-CAM and image processing, with a web-based
+              point system for eco-reward redemption.
+            </li>
+            <li>
+              <strong>Mini Project:</strong> A POS (Point of Sale) mobile
+              application with barcode scanning and real-time price calculation.
+            </li>
+          </ul>
+
+          <p className="text-gray-700 text-base sm:text-lg leading-relaxed mb-4">
+            I’m passionate about expanding my skills in frontend, backend, and
+            embedded systems. I enjoy learning new technologies that solve
+            real-world problems.
+          </p>
+
+          <p className="text-gray-700 text-base sm:text-lg leading-relaxed mb-4">
+            My goal is to become a versatile software developer who can build
+            reliable, user-focused systems and collaborate effectively in
+            professional teams.
+          </p>
+          {/* <Link
             href="/about" // หรือลิงก์ไปยังหน้า About ที่มีรายละเอียดเพิ่มเติม
             className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-700 transition-colors duration-300 transform hover:scale-105 shadow-lg"
           >
             Learn More About Me
-          </Link>
+          </Link> */}
         </div>
       </div>
     </section>

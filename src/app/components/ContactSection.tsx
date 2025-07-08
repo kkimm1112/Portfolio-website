@@ -9,15 +9,15 @@ export default function ContactSection() {
       <div className="container mx-auto px-4 text-center">
         {/* ส่วนหัว */}
         <div className="mb-12">
-          <h2 className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">
+          {/* <h2 className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">
             Get In Touch
-          </h2>
+          </h2> */}
           <h3 className="text-4xl font-extrabold leading-tight">
             Contact <span className="text-blue-400">Me</span>
           </h3>
-          <p className="mt-4 text-gray-300 max-w-2xl mx-auto">
+          {/* <p className="mt-4 text-gray-300 max-w-2xl mx-auto">
             Feel free to reach out if you have any questions, opportunities, or just want to connect!
-          </p>
+          </p> */}
         </div>
 
         {/* ข้อมูลการติดต่อ */}
@@ -65,8 +65,8 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Resume - Software */}
           <div className="bg-gray-700 p-6 rounded-lg shadow-lg flex flex-col items-center hover:bg-gray-600 transition-colors duration-300">
-            <FaFileAlt className="text-green-400 text-4xl mb-4" />
-            <h4 className="text-xl font-semibold mb-2">Software Resume</h4>
+            <FaFileAlt className="text-yellow-400 text-4xl mb-4" />
+            <h4 className="text-xl font-semibold mb-2">Resume</h4>
             <Link
               href="/Thanapat_Software_Resume.pdf"
               target="_blank"
@@ -77,7 +77,7 @@ export default function ContactSection() {
             </Link>
           </div>
 
-          {/* Resume - Engineer */}
+          {/* Resume - Engineer
           <div className="bg-gray-700 p-6 rounded-lg shadow-lg flex flex-col items-center hover:bg-gray-600 transition-colors duration-300">
             <FaFileAlt className="text-yellow-400 text-4xl mb-4" />
             <h4 className="text-xl font-semibold mb-2">Engineer Resume</h4>
@@ -88,8 +88,8 @@ export default function ContactSection() {
               className="text-gray-300 hover:text-white transition-colors duration-200"
             >
               Download PDF
-            </Link>
-          </div>
+            </Link> */}
+          {/* </div> */}
         </div>
       </div>
     </section>
