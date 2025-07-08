@@ -73,6 +73,6 @@ export const allProjectsData: Project[] = [
   // เพิ่มโปรเจกต์อื่นๆ ตามต้องการ
 ];
 
-export function getProjectById(id: string) {
+export async function getProjectById(id: string) {
   return allProjectsData.find((project) => project.id === id);
 }
