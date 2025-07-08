@@ -97,7 +97,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
               {project.apkDownloadUrl && (
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Download
+                    file: {project.title}
                   </h3>
                   <a
                     href={project.apkDownloadUrl}
