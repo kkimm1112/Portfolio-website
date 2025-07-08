@@ -1,3 +1,4 @@
+// src/lib/projects.ts
 export interface Project {
   id: string;
   imageSrc: string;

@@ -1,5 +1,4 @@
 // src/app/projects/[projectId]/page.tsx
-// 'use client'; // ไม่จำเป็นต้องใช้ 'use client' ถ้าหน้าไม่ได้ใช้ client-side hooks หรือ event listeners โดยตรง
 
 import Image from "next/image";
 import { notFound } from "next/navigation"; // สำหรับจัดการกรณีไม่พบโปรเจกต์
@@ -9,19 +8,20 @@ import ProjectGallery from "@/app/components/ProjectGallery" // นำเข้�
 import Link from "next/link";
 
 
+type PageProps = {
+  params: { projectId: string };
+  
+};
+
+
 export async function generateStaticParams() {
   return allProjectsData.map((project) => ({
     projectId: project.id,
   }));
 }
 
-export default function ProjectDetailPage({
-  params,
-}: {
-  params: { projectId: string };
-}) {
-  const projectId = params.projectId;
-  const project = getProjectById(projectId);
+export default function ProjectDetailPage({ params }: { params: { projectId: string } }) {
+  const project = getProjectById(params.projectId);
 
 
   // ถ้าไม่พบโปรเจกต์ ให้แสดงหน้า 404
