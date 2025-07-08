@@ -8,11 +8,6 @@ import { getProjectById, allProjectsData } from "@/lib/projects"; // นำเ�
 import ProjectGallery from "@/app/components/ProjectGallery" // นำเข้า ProjectGallery component
 import Link from "next/link";
 
-interface ProjectDetailPageProps {
-  params: {
-    projectId: string;
-  };
-}
 
 export async function generateStaticParams() {
   return allProjectsData.map((project) => ({
@@ -20,9 +15,13 @@ export async function generateStaticParams() {
   }));
 }
 
-// Component หลักของหน้า Project Detail
-export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
-  const project = await getProjectById(params.projectId);
+export default function ProjectDetailPage({
+  params,
+}: {
+  params: { projectId: string };
+}) {
+  const projectId = params.projectId;
+  const project = getProjectById(projectId);
 
 
   // ถ้าไม่พบโปรเจกต์ ให้แสดงหน้า 404
