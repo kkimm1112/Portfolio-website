@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getProjectById, allProjectsData } from '@/lib/projects';
 import Image from 'next/image';
 import ProjectGallery from "@/app/components/ProjectGallery" // นำเข้า 
+import Link from 'next/link';
 // Next.js 15 - params เป็น Promise
 interface ProjectDetailPageProps {
   params: Promise<{
@@ -126,7 +127,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
           {/* Back Button */}
           <div className="mt-12 text-center">
-            <a
+            <Link
               href="/#projects"
               className="inline-flex items-center bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors"
             >
@@ -144,7 +145,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                 />
               </svg>
               Back to Projects
-            </a>
+            </Link>
           </div>
         </div>
       </div>
