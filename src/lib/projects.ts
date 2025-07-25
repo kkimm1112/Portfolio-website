@@ -71,6 +71,26 @@ export const allProjectsData: Project[] = [
       
     ],
   },
+  {
+    id: "webmovie",
+    imageSrc: "/images/webmovie.png",
+    title: "Web Movie: learn HTML CSS JavaScript",
+    category: "Web Development",
+    description: `
+      โปรเจกต์นี้เป็นการเขียนโปรแกรมด้วย HTML CSS JavaScript เพื่อเรียนรู้การใช้งาน
+      <br/><br/>
+      **ความท้าทาย:** ออกแบบ UI เว็บไซต์, การแทรกวิดีโอจากแหล่งอื่น
+      <br/><br/>
+      **ฟังก์ชันการใช้งาน:** เปิดดูหน้าตัวอย่างหนัง
+    `,
+    technologies: ["HTML", "CSS", "JavaScript"],
+    
+    galleryImages: [
+      "/images/webmovie.png",
+      "/images/carpage.jpeg",
+      
+    ],
+  },
   // เพิ่มโปรเจกต์อื่นๆ ตามต้องการ
 ];
 

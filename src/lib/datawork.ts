@@ -34,14 +34,14 @@ export const projectsData: Project[] = [
     type: ["Software"],
     projectLink: "/projects/website-development",
   },
-  // {
-  //   id: "dashboard-ui",
-  //   imageSrc: "/images/project-4.jpg",
-  //   title: "Analytics Dashboard UI",
-  //   category: "Dashboard Design",
-  //   type: ["Software"],
-  //   projectLink: "/projects/dashboard-ui",
-  // },
+  {
+    id: "webmovie",
+    imageSrc: "/images/webmovie.png",
+    title: "Web with HTML",
+    category: "Webside",
+    type: ["Software"],
+    projectLink: "/projects/webmovie",
+  },
   // {
   //   id: "mechanical-design",
   //   imageSrc: "/images/engineer-1.jpg",
